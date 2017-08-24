@@ -1,7 +1,6 @@
 """
 georssy.gml.gml_decoder
-~~~~~~~~~~~~
-TODO
+-----------------------
 :copyright: (c) 2017 by Sergio Ferraresi.
 :license: Apache2, see LICENSE for more details.
 """
@@ -9,7 +8,14 @@ TODO
 import logging
 import re
 
+from ..models import GeoRSSEntry
+
 logger = logging.getLogger( __name__ )
+
+def decode( parent_node, polygons_over_boxes = False ):
+    gd = gml_decoder( parent_node = parent_node, polygons_over_boxes = polygons_over_boxes )
+
+    return GeoRSSEntry( point_list = gd.point_list, line_list = gd.line_list, polygon_list = gd.polygon_list )
 
 class gml_decoder( object ):
     '''

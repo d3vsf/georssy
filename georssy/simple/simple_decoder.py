@@ -1,7 +1,6 @@
 """
 georssy.simple.simple_decoder
-~~~~~~~~~~~~
-TODO
+-----------------------------
 :copyright: (c) 2017 by Sergio Ferraresi.
 :license: Apache2, see LICENSE for more details.
 """
@@ -9,12 +8,14 @@ TODO
 import logging
 import re
 
+from ..models import GeoRSSEntry
+
 logger = logging.getLogger( __name__ )
 
-#def decoder( parent_node ):
-#    sd = simple_decoder( parent_node = parent_node )
-#
-#    return [ sd.point_list, sd.line_list, sd.polygon_list, sd.feature_type_list, sd.feature_name_list, sd.relationship_list, sd.elevation_list, sd.floor_list, sd.radius_list ]
+def decode( parent_node, polygons_over_boxes = False ):
+    sd = simple_decoder( parent_node = parent_node, polygons_over_boxes = polygons_over_boxes )
+
+    return GeoRSSEntry( sd.point_list, sd.line_list, sd.polygon_list, sd.feature_type_list, sd.feature_name_list, sd.relationship_list, sd.elevation_list, sd.floor_list, sd.radius_list )
 
 class simple_decoder( object ):
     '''

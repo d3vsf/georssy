@@ -1,7 +1,6 @@
 """
 georssy.decoder
-~~~~~~~~~~~~
-TODO
+---------------
 :copyright: (c) 2017 by Sergio Ferraresi.
 :license: Apache2, see LICENSE for more details.
 """
@@ -9,8 +8,8 @@ TODO
 import logging
 import re
 
-from .gml.gml_decoder import gml_decoder
-from .simple.simple_decoder import simple_decoder
+from gml.gml_decoder import decode as g_decoder
+from simple.simple_decoder import decode as s_decoder
 
 logger = logging.getLogger( __name__ )
 
@@ -39,45 +38,24 @@ class decoder( object ):
         logger.debug( 'georssy parameters:' )
         logger.debug( '  Polygons over Boxes: "%s"' % ( 'Y' if polygons_over_boxes else 'N' ) )
 
-        sd = simple_decoder( parent_node = parent_node, polygons_over_boxes = polygons_over_boxes )
-        gd = gml_decoder( parent_node = parent_node, polygons_over_boxes = polygons_over_boxes )
-
-        self.point_list = []
-        if sd.point_list:
-            self.point_list.extend( sd.point_list )
-        if gd.point_list:
-            self.point_list.extend( gd.point_list )
-        self.line_list = []
-        if sd.line_list:
-            self.line_list.extend( sd.line_list )
-        if gd.line_list:
-            self.line_list.extend( gd.line_list )
-        self.polygon_list = []
-        if sd.polygon_list:
-            self.polygon_list.extend( sd.polygon_list )
-        if gd.polygon_list:
-            self.polygon_list.extend( gd.polygon_list )
-        self.feature_type_list = sd.feature_type_list
-        self.feature_name_list = sd.feature_name_list
-        self.relationship_list = sd.relationship_list
-        self.elevation_list = sd.elevation_list
-        self.floor_list = sd.floor_list
-        self.radius_list = sd.radius_list
+        self.georss_entry = s_decoder( parent_node = parent_node, polygons_over_boxes = polygons_over_boxes )
+        other = g_decoder( parent_node = parent_node, polygons_over_boxes = polygons_over_boxes )
+        self.georss_entry.merge( other = other )
 
         logger.debug( 'georssy decoded elements:' )
-        if self.point_list:
-            logger.debug( '  Points: "%s"' % str( self.point_list ) )
-        if self.line_list:
-            logger.debug( '  Lines: "%s"' % str( self.line_list ) )
-        if self.polygon_list:
-            logger.debug( '  Polygons: "%s"' % str( self.polygon_list ) )
-        if self.feature_type_list:
-            logger.debug( '  Feature Types: "%s"' % str( self.feature_type_list ) )
-        if self.feature_name_list:
-            logger.debug( '  Feature Names: "%s"' % str( self.feature_name_list ) )
-        if self.relationship_list:
-            logger.debug( '  Relationships: "%s"' % str( self.relationship_list ) )
-        if self.elevation_list:
-            logger.debug( '  Elevations: "%s"' % str( self.elevation_list ) )
-        if self.floor_list:
-            logger.debug( '  Floors: "%s"' % str( self.floor_list ) )
+        if self.georss_entry.point_list:
+            logger.debug( '  Points: "%s"' % str( self.georss_entry.point_list ) )
+        if self.georss_entry.line_list:
+            logger.debug( '  Lines: "%s"' % str( self.georss_entry.line_list ) )
+        if self.georss_entry.polygon_list:
+            logger.debug( '  Polygons: "%s"' % str( self.georss_entry.polygon_list ) )
+        if self.georss_entry.feature_type_list:
+            logger.debug( '  Feature Types: "%s"' % str( self.georss_entry.feature_type_list ) )
+        if self.georss_entry.feature_name_list:
+            logger.debug( '  Feature Names: "%s"' % str( self.georss_entry.feature_name_list ) )
+        if self.georss_entry.relationship_list:
+            logger.debug( '  Relationships: "%s"' % str( self.georss_entry.relationship_list ) )
+        if self.georss_entry.elevation_list:
+            logger.debug( '  Elevations: "%s"' % str( self.georss_entry.elevation_list ) )
+        if self.georss_entry.floor_list:
+            logger.debug( '  Floors: "%s"' % str( self.georss_entry.floor_list ) )

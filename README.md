@@ -9,8 +9,9 @@ For information about GeoRSS: http://www.georss.org/
 Currently, the repository it's the only way to use georssy.
 
 ## How to use georssy
-geo_rss = GeoRssDecoder( parent_node = r, polygons_over_boxes = True )
-tmp = geo_rss.polygon_list
+from georssy import GeoRssDecoder
+georss_entry = GeoRssDecoder( parent_node = r, polygons_over_boxes = True )
+tmp = georss_entry.polygon_list
 
 ## TODO
 - add url and file as decoder inputs
