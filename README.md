@@ -13,7 +13,9 @@ geo_rss = GeoRssDecoder( parent_node = r, polygons_over_boxes = True )
 tmp = geo_rss.polygon_list
 
 ## TODO
+- add url and file as decoder inputs
 - Python 3
+- Tests
 - PIP packaging
 
 ---
