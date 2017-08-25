@@ -3,6 +3,13 @@
 Release History
 ---------------
 
+v0.0.3 (2017-08-25)
+++++++++++++++++
+
+- Bug fixing
+- Added Tests
+- Created Makefile
+
 v0.0.2 (2017-08-24)
 ++++++++++++++++
 

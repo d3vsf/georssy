@@ -8,14 +8,14 @@ georssy.gml.gml_decoder
 import logging
 import re
 
-from ..models import GeoRSSEntry
+from models import GeoRSSEntry
 
 logger = logging.getLogger( __name__ )
 
 def decode( parent_node, polygons_over_boxes = False ):
     gd = gml_decoder( parent_node = parent_node, polygons_over_boxes = polygons_over_boxes )
 
-    return GeoRSSEntry( point_list = gd.point_list, line_list = gd.line_list, polygon_list = gd.polygon_list )
+    return GeoRSSEntry( point_list = gd.point_list, line_list = gd.line_list, polygon_list = gd.polygon_list, polygons_over_boxes = polygons_over_boxes )
 
 class gml_decoder( object ):
     '''
@@ -150,7 +150,7 @@ class gml_decoder( object ):
                 # get all pos nodes, if existing
                 pos_list = line.findall( './/{http://www.opengis.net/gml}pos' )
 
-                if poslist:
+                if poslist is not None:
                     tmp = re.sub( '\s+', ' ', poslist.text.strip().replace( ',', ' ' ) ).split()
                     # Gel all Latitudes
                     lat_list = tmp[ 0 : len( tmp ) : 2 ]
@@ -270,17 +270,17 @@ class gml_decoder( object ):
 
                 polygon_tmp = []
                 raw_tmp = ''
-                if exterior:
-                    ring = ext_.find( '{http://www.opengis.net/gml}LinearRing' )
+                if exterior is not None:
+                    ring = exterior.find( '{http://www.opengis.net/gml}LinearRing' )
 
-                    if ring:
+                    if ring is not None:
                         poslist = ring.find( '{http://www.opengis.net/gml}posList' )
                         # get all pos nodes, if existing
                         pos_list = ring.findall( './/{http://www.opengis.net/gml}pos' )
 
                         ext_pol = []
                         ext_raw = '('
-                        if poslist:
+                        if poslist is not None:
                             tmp = re.sub( '\s+', ' ', poslist.text.strip().replace( ',', ' ' ) ).split()
                             # Gel all Latitudes
                             lat_list = tmp[ 0 : len( tmp ) : 2 ]
@@ -305,17 +305,17 @@ class gml_decoder( object ):
                         polygon_tmp.extend( ext_pol )
                         raw_tmp += ext_raw
 
-                if interior:
-                    ring = int_.findall( '{http://www.opengis.net/gml}LinearRing' )
+                if interior is not None:
+                    ring = interior.find( '{http://www.opengis.net/gml}LinearRing' )
 
-                    if ring:
+                    if ring is not None:
                         poslist = ring.find( '{http://www.opengis.net/gml}posList' )
                         # get all pos nodes, if existing
                         pos_list = ring.findall( './/{http://www.opengis.net/gml}pos' )
 
                         int_pol = []
                         int_raw = '('
-                        if poslist:
+                        if poslist is not None:
                             tmp = re.sub( '\s+', ' ', poslist.text.strip().replace( ',', ' ' ) ).split()
                             # Gel all Latitudes
                             lat_list = tmp[ 0 : len( tmp ) : 2 ]

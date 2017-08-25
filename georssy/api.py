@@ -6,5 +6,6 @@ georssy.api
 """
 from decoder import decoder
 
-def decode( parent_node, polygons_over_boxes ):
-    return decoder( parent_node, polygons_over_boxes ).georss_entry
+def decode( parent_node = None, polygons_over_boxes = False ):
+    d = decoder( parent_node, polygons_over_boxes )
+    return d.georss_entry if d else None

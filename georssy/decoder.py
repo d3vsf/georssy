@@ -8,8 +8,8 @@ georssy.decoder
 import logging
 import re
 
-from gml.gml_decoder import decode as g_decoder
-from simple.simple_decoder import decode as s_decoder
+from gml_decoder import decode as g_decoder
+from simple_decoder import decode as s_decoder
 
 logger = logging.getLogger( __name__ )
 
