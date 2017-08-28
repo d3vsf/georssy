@@ -5,6 +5,7 @@
 [![PyPI](https://img.shields.io/pypi/pyversions/georssy.svg)](https://pypi.python.org/pypi/georssy)
 [![PyPI](https://img.shields.io/pypi/format/georssy.svg)](https://pypi.python.org/pypi/georssy)
 [![PyPI](https://img.shields.io/pypi/wheel/georssy.svg)](https://pypi.python.org/pypi/georssy)
+[![PyPI](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/devsf)
 
 A rough Python GeoRSS (Geographically Encoded Objects for RSS feeds) decoder.
 
